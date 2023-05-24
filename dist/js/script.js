@@ -72,3 +72,7 @@ if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.match
 } else {
   darkMode.checked = false;
 }
+
+// Copyright
+const year = document.querySelector('#current-year');
+year.innerHTML = new Date().getFullYear();
