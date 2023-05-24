@@ -2,11 +2,16 @@
 window.onscroll = function () {
   const header = document.querySelector('header');
   const fixedNav = header.offsetTop;
+  const scrollTop = document.querySelector('#scroll-top');
 
   if (window.pageYOffset > fixedNav) {
     header.classList.add('navbar-fixed');
+    scrollTop.classList.remove('hidden');
+    scrollTop.classList.add('flex');
   } else {
     header.classList.remove('navbar-fixed');
+    scrollTop.classList.remove('flex');
+    scrollTop.classList.add('hidden');
   }
 };
 
@@ -38,3 +43,32 @@ form.addEventListener('submit', (e) => {
     })
     .catch((error) => console.error('Error!', error.message));
 });
+
+// Close navbar diluar hamburger
+window.addEventListener('click', function (e) {
+  if (e.target != hamburger && e.target != navMenu) {
+    hamburger.classList.remove('hamburger-active');
+    navMenu.classList.add('hidden');
+  }
+});
+
+// Darkmode
+const darkMode = document.querySelector('#dark-toggle');
+const html = document.querySelector('html');
+
+darkMode.addEventListener('click', function () {
+  if (darkMode.checked) {
+    html.classList.add('dark');
+    localStorage.theme = 'dark';
+  } else {
+    localStorage.theme = 'light';
+    html.classList.remove('dark');
+  }
+});
+
+// switch toggle sesuai mode
+if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+  darkMode.checked = true;
+} else {
+  darkMode.checked = false;
+}
